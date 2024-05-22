@@ -10,6 +10,10 @@ public class Questionnaire {
     
     public class Builder {
         
+        public init() {
+            
+        }
+        
         public func build() -> Questionnaire {
             return Questionnaire(builder: self)
         }
