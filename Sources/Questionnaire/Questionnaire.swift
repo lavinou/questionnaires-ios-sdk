@@ -11,9 +11,9 @@ public class Questionnaire {
     }
     
     public func launch(id: String) {
-        let appDelegate = UIApplication.shared.delegate as! QuestionnaireDelegate
-        let vContoller = UIHostingController(rootView: QuestionnaireView())
-        appDelegate.loadNewRootSwiftUIView(rootViewController: vContoller)
+//        let appDelegate = UIApplication.shared.delegate as! QuestionnaireDelegate
+//        let vContoller = UIHostingController(rootView: QuestionnaireView())
+//        appDelegate.loadNewRootSwiftUIView(rootViewController: vContoller)
     }
     
     
