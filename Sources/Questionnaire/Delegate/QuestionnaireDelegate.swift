@@ -7,19 +7,19 @@
 
 import Foundation
 //import SwiftUI
-//import UIKit
+import UIKit
 //
-//@UIApplicationMain
-//class QuestionnaireDelegate: UIResponder, UIApplicationDelegate {
-//    
-//    var window: UIWindow?
-//    
-//    func loadNewRootSwiftUIView(rootViewController: UIViewController)
-//        {
-//            let window = UIWindow(frame: UIScreen.main.bounds)
-//            window.rootViewController = rootViewController
-//            self.window = window
-//            window.makeKeyAndVisible()
-//        }
-//    
-//}
+@UIApplicationMain
+class QuestionnaireDelegate: UIResponder, UIApplicationDelegate {
+    
+    var window: UIWindow?
+    
+    func loadNewRootSwiftUIView(rootViewController: UIViewController)
+        {
+            let window = UIWindow(frame: UIScreen.main.bounds)
+            window.rootViewController = rootViewController
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+    
+}
