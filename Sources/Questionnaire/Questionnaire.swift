@@ -2,7 +2,7 @@
 // https://docs.swift.org/swift-book
 
 //import UIKit
-//import SwiftUI
+import SwiftUI
 
 public class Questionnaire {
     
