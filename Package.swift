@@ -4,11 +4,11 @@
 import PackageDescription
 
 let package = Package(
-    name: "Questionnaire",
+    name: "sdk",
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
-            name: "Questionnaire",
+            name: "sdk",
             targets: ["sdk"]),
     ],
     targets: [
@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "sdk"),
         .testTarget(
-            name: "QuestionnaireTest",
+            name: "sdkTests",
             dependencies: ["sdk"]),
     ]
 )
