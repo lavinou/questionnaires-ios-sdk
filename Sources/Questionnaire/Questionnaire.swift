@@ -1,8 +1,8 @@
 // The Swift Programming Language
 // https://docs.swift.org/swift-book
 
-import UIKit
-import SwiftUI
+//import UIKit
+//import SwiftUI
 
 public class Questionnaire {
     
