@@ -10,7 +10,7 @@ public class Questionnaire {
     
     public class Builder {
         
-        func build() -> Questionnaire {
+        public func build() -> Questionnaire {
             return Questionnaire(builder: self)
         }
     }
