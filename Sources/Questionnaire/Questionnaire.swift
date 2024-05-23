@@ -23,11 +23,9 @@ public class Questionnaire {
         
         var apiKey: String = ""
         var user: QuestionnaireUser? = nil
-        var viewController: UIViewController
         
-        public init(apiKey: String, vc: UIViewController) {
+        public init(apiKey: String) {
             self.apiKey = apiKey
-            self.viewController = vc
         }
         
         
