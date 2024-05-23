@@ -6,14 +6,17 @@ import SwiftUI
 
 public class Questionnaire {
     
+    private let builder: Builder
+    
     private init(builder: Builder) {
-        
+        self.builder = builder
     }
     
     public func launch(id: String) {
-//        let appDelegate = UIApplication.shared.delegate as! QuestionnaireDelegate
-//        let vContoller = UIHostingController(rootView: QuestionnaireView())
-//        appDelegate.loadNewRootSwiftUIView(rootViewController: vContoller)
+        let vContoller = UIHostingController(rootView: QuestionnaireView())
+        self.builder.viewController.present(vContoller, animated: false, completion: {
+            
+        })
     }
     
     
@@ -21,10 +24,13 @@ public class Questionnaire {
         
         var apiKey: String = ""
         var user: QuestionnaireUser? = nil
+        var viewController: UIViewController
         
-        public init(apiKey: String) {
+        public init(apiKey: String, vc: UIViewController) {
             self.apiKey = apiKey
+            self.viewController = vc
         }
+        
         
         func setUser(user: QuestionnaireUser) -> Builder {
             self.user = user

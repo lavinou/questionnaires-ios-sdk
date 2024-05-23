@@ -5,7 +5,7 @@ final class sdkTests: XCTestCase {
     func testExample() throws {
         // XCTest Documentation
         // https://developer.apple.com/documentation/xctest
-        let questionnaire = Questionnaire.Builder(apiKey: "")
+        let questionnaire = Questionnaire.Builder(apiKey: "", vc: UIViewController.init())
             .build()
         
 
