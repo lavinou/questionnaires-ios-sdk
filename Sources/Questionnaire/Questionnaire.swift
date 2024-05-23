@@ -13,10 +13,9 @@ public class Questionnaire {
     }
     
     public func launch(id: String) {
-        let vContoller = UIHostingController(rootView: QuestionnaireView())
-        self.builder.viewController.present(vContoller, animated: false, completion: {
-            
-        })
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        window.rootViewController = QuestionnaireViewController()
+        window.makeKeyAndVisible()
     }
     
     
