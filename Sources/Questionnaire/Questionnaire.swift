@@ -13,9 +13,13 @@ public class Questionnaire {
     }
     
     public func launch(id: String) {
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = QuestionnaireViewController()
-        window.makeKeyAndVisible()
+        guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+              let rootViewController = windowScene.windows.first?.rootViewController else {
+            return
+        }
+        let hostingController = UIHostingController(rootView: QuestionnaireView())
+
+        rootViewController.present(hostingController, animated: true, completion: nil)
     }
     
     
