@@ -42,7 +42,6 @@ extension ApiClient {
         request.setValue("questai-sdk/", forHTTPHeaderField: "User-Agent")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Api-Key \(apiKey)", forHTTPHeaderField: "Authorization")
-        print("Api-Key \(apiKey)")
     
         
         return request
@@ -73,24 +72,23 @@ extension ApiClient {
 extension ApiClient {
     
     func get<RESPONSE: Decodable>(resource: String) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: RequestMethod.post)
+        let endpoint = EndPoint(path: resource, method: .get)
         let request = try createRequest(endpoint: endpoint)
         
         return try await getResponse(request: request)
     }
     
     func post<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: RequestMethod.post, data: data)
+        let endpoint = EndPoint(path: resource, method: .post, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
-        print(request)
         
         return try await getResponse(request: request)
     }
     
     func put<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: RequestMethod.post, data: data)
+        let endpoint = EndPoint(path: resource, method: .put, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
@@ -99,7 +97,7 @@ extension ApiClient {
     }
     
     func patch<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: RequestMethod.post, data: data)
+        let endpoint = EndPoint(path: resource, method: .patch, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
@@ -108,7 +106,7 @@ extension ApiClient {
     }
     
     func delete<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST? = nil) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: RequestMethod.post, data: data)
+        let endpoint = EndPoint(path: resource, method: .delete, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
