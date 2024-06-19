@@ -61,6 +61,7 @@ extension ApiClient {
         
         
         do {
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             let decoded = try decoder.decode(RESPONSE.self, from: data)
             return decoded
         } catch {
