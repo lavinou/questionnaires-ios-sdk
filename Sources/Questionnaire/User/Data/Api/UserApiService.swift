@@ -21,8 +21,6 @@ class UserApiService {
             data: Optional<String>.none
         )
         
-        print(response)
-        
         return response
     }
     

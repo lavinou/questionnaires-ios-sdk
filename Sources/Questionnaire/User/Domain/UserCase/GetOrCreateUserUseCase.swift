@@ -24,6 +24,7 @@ class GetOrCreateUserUseCase {
                 return.success(data: user)
             }
         } catch {
+            print(error)
             return .error(message: "Unable to get user")
         }
     }
