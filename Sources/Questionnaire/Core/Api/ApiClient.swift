@@ -42,6 +42,7 @@ extension ApiClient {
         request.setValue("questai-sdk/", forHTTPHeaderField: "User-Agent")
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.setValue("Api-Key \(apiKey)", forHTTPHeaderField: "Authorization")
+        print("Api-Key \(apiKey)")
     
         
         return request
@@ -82,6 +83,7 @@ extension ApiClient {
         let request = try createRequest(
             endpoint: endpoint
         )
+        print(request)
         
         return try await getResponse(request: request)
     }

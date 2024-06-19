@@ -16,10 +16,14 @@ class UserApiService {
     }
     
     func createUser() async throws -> UserResponse {
-        return try await self.apiClient.post(
+        let response: UserResponse try await self.apiClient.post(
             resource: "/users/takers/",
             data: Optional<String>.none
         )
+        
+        print(response)
+        
+        return response
     }
     
     func getUser(id: String) async -> UserResponse? {
