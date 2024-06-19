@@ -11,6 +11,7 @@ struct ApiClient {
     
     let apiKey: String
     let decoder = JSONDecoder()
+    let encoder = JSONEncoder()
     
     
 }
@@ -28,10 +29,11 @@ extension ApiClient {
             throw ApiError.invalidUrl
         }
         
+        
         var request = URLRequest(url: url)
         if let data = endpoint.data {
             do {
-                request.httpBody = try JSONSerialization.data(withJSONObject: data)
+                request.httpBody = try encoder.encode(data)
             } catch {
                 throw ApiError.Request.unableToEncode(data: data)
             }
