@@ -17,7 +17,7 @@ class UserApiService {
     
     func createUser() async throws -> UserResponse {
         let response: UserResponse = try await self.apiClient.post(
-            resource: "/users/takers/",
+            resource: "/v1/users/takers/",
             data: Optional<String>.none
         )
         
@@ -26,7 +26,7 @@ class UserApiService {
     
     func getUser(id: String) async -> UserResponse? {
         do {
-            return try await self.apiClient.get(resource: "/users/takers/\(id)/")
+            return try await self.apiClient.get(resource: "/v1/users/takers/\(id)/")
         } catch {
             return nil
         }
