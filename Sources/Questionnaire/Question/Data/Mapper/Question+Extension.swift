@@ -15,7 +15,7 @@ extension QuestionResponse {
         }
         
         let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate,.withFullTime]
+        formatter.formatOptions = [.withFullDate, .withFullTime, .withTimeZone]
         let date = formatter.date(from: value) ?? Date.now
         print("Date: \(date)")
         return date
