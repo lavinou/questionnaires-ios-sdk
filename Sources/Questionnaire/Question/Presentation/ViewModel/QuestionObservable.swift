@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class QuestionObservable: ObservableObject {
     
 
@@ -49,14 +48,19 @@ class QuestionObservable: ObservableObject {
         
         switch(result) {
             case let .success(data):
-                state.question = data.question
-                state.previous = data.previous
-                state.status = data.status
-                state.loading = false
+                DispatchQueue.main.async {
+                    self.state.question = data.question
+                    self.state.previous = data.previous
+                    self.state.status = data.status
+                    self.state.loading = false
+                }
+                
                 break
             case let .error(error, message):
-                state.errorMessage = message
-                state.loading = false
+                DispatchQueue.main.async {
+                    self.state.errorMessage = message
+                    self.state.loading = false
+                }
                 break
         }
         

@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-@MainActor
 class UserObservable: ObservableObject {
     
     private let manager: UserManager
@@ -18,11 +17,13 @@ class UserObservable: ObservableObject {
     init(manager: UserManager) {
         self.manager = manager
         Task(operation: {
-            let user = await self.manager.current()
-            self.manager.user.sink(receiveValue: {
-                if let user = $0 {
-                    self.user = user
-                }
+            let _ = await self.manager.current()
+            self.manager.user
+                .receive(on: DispatchQueue.main)
+                .sink(receiveValue: {
+                    if let user = $0 {
+                        self.user = user
+                    }
             }).store(in: &cancellables)
         })
     }
