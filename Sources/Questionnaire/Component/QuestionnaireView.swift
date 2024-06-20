@@ -8,11 +8,21 @@
 import SwiftUI
 
 struct QuestionnaireView: View {
+    
+    let id: String
+    @ObservedObject var questionObservable: QuestionObservable
+    @ObservedObject var userObservable: UserObservable
+    
     var body: some View {
         Text("Hello wrodl from questionnaire")
+            .task {
+                if let user = userObservable.user {
+                    questionObservable.dispatch(
+                        action: .getCurrentQuestion(
+                            questionnaire: id, takerId: user.id
+                        )
+                    )
+                }
+            }
     }
-}
-
-#Preview {
-    QuestionnaireView()
 }

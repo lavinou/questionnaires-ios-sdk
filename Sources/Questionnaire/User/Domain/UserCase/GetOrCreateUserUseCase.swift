@@ -25,7 +25,10 @@ class GetOrCreateUserUseCase {
             }
         } catch {
             print(error)
-            return .error(message: "Unable to get user")
+            return .error(
+                error: error,
+                message: "Unable to get user"
+            )
         }
     }
 }

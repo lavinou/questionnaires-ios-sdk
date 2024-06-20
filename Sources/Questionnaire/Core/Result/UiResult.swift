@@ -11,5 +11,8 @@ import Foundation
 enum UiResult<T> {
     
     case success(data: T)
-    case error(message: String)
+    case error(
+        error: Error,
+        message: String
+    )
 }

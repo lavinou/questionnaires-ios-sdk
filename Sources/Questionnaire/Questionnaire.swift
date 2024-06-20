@@ -3,33 +3,39 @@
 
 import UIKit
 import SwiftUI
+import Combine
 
 public class Questionnaire {
     
     private let builder: Builder
-    private let apiClient: ApiClient
     
     private init(builder: Builder) {
         self.builder = builder
-        self.apiClient = ApiClient(apiKey: self.builder.apiKey)
-        Task(operation: {
-            if let user = await builder.userManager?.current() {
-                print(user)
-            }
-        })
-        
-        builder.userManager?.user.sink(receiveValue: { user in
-            print("Sink: \(user)")
-        })
         
     }
     
     public func launch(id: String) {
+        
+        guard let questionObservable = builder.questionObservable, 
+            let _ = builder.userManager,
+            let userObservable = builder.userObservable else {
+            return
+        }
+        
+        
+        
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let rootViewController = windowScene.windows.first?.rootViewController else {
             return
         }
-        let hostingController = UIHostingController(rootView: QuestionnaireView())
+        let hostingController = UIHostingController(rootView: QuestionnaireView(
+            id: id,
+            questionObservable: questionObservable,
+            userObservable: userObservable
+        ))
+        hostingController.modalPresentationStyle = .pageSheet
+        let sheet = hostingController.sheetPresentationController
+        sheet?.detents = [.medium(), .large()]
 
         rootViewController.present(hostingController, animated: true, completion: nil)
     }
@@ -40,6 +46,8 @@ public class Questionnaire {
         var apiKey: String = ""
         var user: QuestionnaireUser? = nil
         var userManager: UserManager? = nil
+        var userObservable: UserObservable? = nil
+        var questionObservable: QuestionObservable? = nil
         
         public init(apiKey: String) {
             self.apiKey = apiKey
@@ -66,8 +74,24 @@ public class Questionnaire {
             let getOrCreateUserUseCase = GetOrCreateUserUseCase(repository: userRepository)
             let internalUserManager = UserManager(getOrCreateUserUseCase: getOrCreateUserUseCase)
             userManager = internalUserManager
-            ///
+            if let userManager = userManager {
+                userObservable = UserObservable(manager: userManager)
+            }
             
+            
+            /// question
+            let questionApiService = QuestionApiService(apiClient: apiClient)
+            let questionRepository: QuestionRepository = DefaultQuestionRepository(
+                apiService: questionApiService
+            )
+            let getCurrentQuestionUseCase: GetCurrentQuestionUseCase =  GetCurrentQuestionUseCase(
+                repository: questionRepository
+            )
+            let internalQuestionObservable = QuestionObservable(
+                getCurrentQuestionUseCase: getCurrentQuestionUseCase,
+                repository: questionRepository
+            )
+            questionObservable = internalQuestionObservable
             
             return Questionnaire(builder: self)
         }
