@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+@MainActor
 class UserObservable: ObservableObject {
     
     private let manager: UserManager
