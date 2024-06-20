@@ -22,17 +22,17 @@ public class Questionnaire {
             return
         }
         
-        
-        
         guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
               let rootViewController = windowScene.windows.first?.rootViewController else {
             return
         }
+        
         let hostingController = UIHostingController(rootView: QuestionnaireView(
             id: id,
             questionObservable: questionObservable,
             userObservable: userObservable
         ))
+        
         hostingController.modalPresentationStyle = .pageSheet
         let sheet = hostingController.sheetPresentationController
         sheet?.detents = [.medium(), .large()]
