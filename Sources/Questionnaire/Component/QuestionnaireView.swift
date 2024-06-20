@@ -14,7 +14,7 @@ struct QuestionnaireView: View {
     @ObservedObject var userObservable: UserObservable
     
     var body: some View {
-        Text("Hello wrodl from questionnaire")
+        Text("Hello wrodl from questionnaire: \(questionObservable.state.question)")
             .task {
                 if let user = userObservable.user {
                     questionObservable.dispatch(
