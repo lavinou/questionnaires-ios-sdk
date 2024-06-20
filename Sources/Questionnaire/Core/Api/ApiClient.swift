@@ -24,6 +24,9 @@ extension ApiClient {
         component.scheme = endpoint.scheme
         component.host = endpoint.host
         component.path = endpoint.path
+        component.queryItems = endpoint.queryParams.map({
+            URLQueryItem(name: $0.key, value: $0.value)
+        })
         
         guard let url = component.url else {
             throw ApiError.invalidUrl
@@ -71,15 +74,19 @@ extension ApiClient {
 
 extension ApiClient {
     
-    func get<RESPONSE: Decodable>(resource: String) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: .get)
+    func get<RESPONSE: Decodable>(resource: String, params: [String: String] = [:]) async throws -> RESPONSE {
+        let endpoint = EndPoint(path: resource, method: .get, queryParams: params)
         let request = try createRequest(endpoint: endpoint)
         
         return try await getResponse(request: request)
     }
     
-    func post<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: .post, data: data)
+    func post<REQUEST: Encodable, RESPONSE: Decodable>(
+        resource: String,
+        data: REQUEST,
+        params: [String: String] = [:]
+    ) async throws -> RESPONSE {
+        let endpoint = EndPoint(path: resource, method: .post, queryParams: params, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
@@ -87,8 +94,12 @@ extension ApiClient {
         return try await getResponse(request: request)
     }
     
-    func put<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: .put, data: data)
+    func put<REQUEST: Encodable, RESPONSE: Decodable>(
+        resource: String,
+        data: REQUEST,
+        params: [String: String] = [:]
+    ) async throws -> RESPONSE {
+        let endpoint = EndPoint(path: resource, method: .put, queryParams: params, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
@@ -96,8 +107,12 @@ extension ApiClient {
         return try await getResponse(request: request)
     }
     
-    func patch<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: .patch, data: data)
+    func patch<REQUEST: Encodable, RESPONSE: Decodable>(
+        resource: String,
+        data: REQUEST,
+        params: [String: String] = [:]
+    ) async throws -> RESPONSE {
+        let endpoint = EndPoint(path: resource, method: .patch, queryParams: params, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )
@@ -105,8 +120,12 @@ extension ApiClient {
         return try await getResponse(request: request)
     }
     
-    func delete<REQUEST: Encodable, RESPONSE: Decodable>(resource: String, data: REQUEST? = nil) async throws -> RESPONSE {
-        let endpoint = EndPoint(path: resource, method: .delete, data: data)
+    func delete<REQUEST: Encodable, RESPONSE: Decodable>(
+        resource: String,
+        data: REQUEST? = nil,
+        params: [String: String] = [:]
+    ) async throws -> RESPONSE {
+        let endpoint = EndPoint(path: resource, method: .delete, queryParams: params, data: data)
         let request = try createRequest(
             endpoint: endpoint
         )

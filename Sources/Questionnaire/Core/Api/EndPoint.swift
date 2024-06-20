@@ -11,6 +11,7 @@ struct EndPoint {
     
     let path: String
     let method: RequestMethod
+    var queryParams: [String: String] = [:]
     var data: Encodable? = nil
     var scheme: String = "https"
     var host: String = "questionnaire-api.lavinou.com"

@@ -17,20 +17,23 @@ class QuestionApiService {
     
     func currentQuestion(questionnaireId: String, takerId: String) async throws -> CurrentQuestionResponse {
         return try await self.apiClient.get(
-            resource: "/v1/questionnaires/\(questionnaireId)/current/?taker=\(takerId)"
+            resource: "/v1/questionnaires/\(questionnaireId)/current/",
+            params: ["takerId": takerId]
         )
     }
     
     func nextQuestion(questionnaireId: String, takerId: String, request: NextQuestionRequest) async throws -> CurrentQuestionResponse {
         return try await self.apiClient.post(
-            resource: "/v1/questionnaires/\(questionnaireId)/next/?taker=\(takerId)",
-            data: request
+            resource: "/v1/questionnaires/\(questionnaireId)/next/",
+            data: request,
+            params: ["takerId": takerId]
         )
     }
     
     func previous(questionnaireId: String, takerId: String) async throws -> CurrentQuestionResponse {
         return try await self.apiClient.get(
-            resource: "/v1/questionnaires/\(questionnaireId)/previous/?taker=\(takerId)"
+            resource: "/v1/questionnaires/\(questionnaireId)/previous/",
+            params: ["takerId": takerId]
         )
     }
    
