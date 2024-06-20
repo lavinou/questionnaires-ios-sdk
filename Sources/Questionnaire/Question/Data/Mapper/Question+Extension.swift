@@ -9,13 +9,13 @@ import Foundation
 
 extension QuestionResponse {
     
-    func toQuestion() throws -> Question {
-        var updatedAtDate: Date? = nil
-        if let updatedAt = self.updatedAt {
-            updatedAtDate = try Date(updatedAt, strategy: .iso8601)
-        } else {
-            updatedAtDate = nil
-        }
+    func toQuestion() -> Question {
+//        var updatedAtDate: Date? = nil
+//        if let updatedAt = self.updatedAt {
+//            updatedAtDate = try Date(updatedAt, strategy: .iso8601)
+//        } else {
+//            updatedAtDate = nil
+//        }
         
         return Question(
             id: self.id,
@@ -23,19 +23,19 @@ extension QuestionResponse {
             name: self.name,
             type: AnswerType.from(value: self.type),
             answers: self.answers.map({$0.toAnswer()}), 
-            createdAt: try Date(self.createdAt, strategy: .iso8601),
-            updatedAt: updatedAtDate
+            createdAt: Date(),
+            updatedAt: Date()
         )
     }
 }
 
 extension CurrentQuestionResponse {
     
-    func toCurrentQuestion() throws -> CurrentQuestion {
+    func toCurrentQuestion() -> CurrentQuestion {
         return CurrentQuestion(
             status: QuestionStatus.from(value: self.status),
             previous: self.previous,
-            question: try self.question?.toQuestion()
+            question: self.question?.toQuestion()
         )
     }
 }

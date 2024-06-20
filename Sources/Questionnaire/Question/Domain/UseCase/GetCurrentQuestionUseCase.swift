@@ -23,7 +23,7 @@ class GetCurrentQuestionUseCase {
             
             return .success(data: current)
         } catch {
-            print(error.localizedDescription)
+            print("Error Getting Current Question: \(error.localizedDescription)")
             return .error(
                 error: error,
                 message: "Unable to get current question"
