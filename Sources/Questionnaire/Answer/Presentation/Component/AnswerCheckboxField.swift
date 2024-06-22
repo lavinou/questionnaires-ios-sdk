@@ -15,7 +15,7 @@ struct AnswerCheckboxField: View {
     
     var body: some View {
         Toggle(isOn: $selected) {
-            Text("Something")
+            Text(answer.name)
         }.toggleStyle(.check)
     }
 }

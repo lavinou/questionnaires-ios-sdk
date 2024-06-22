@@ -27,7 +27,7 @@ extension Question {
             questionnaireId: UUID().uuidString,
             name: "Test",
             type: .boolean,
-            answers: [],
+            answers: [Answer(id: "", name: "yes"), Answer(id: "", name: "No")],
             createdAt: Date.now,
             updatedAt: nil
         )

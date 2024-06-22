@@ -15,10 +15,7 @@ struct QuestionnaireView: View {
     
     var body: some View {
         if let question = questionObservable.state.question {
-            AnswerField(
-                answers: question.answers,
-                type: question.type
-            )
+            QuestionView(question: question)
             .task {
                 if let user = userObservable.user {
                     questionObservable.dispatch(

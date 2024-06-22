@@ -38,7 +38,7 @@ struct AnswerField: View {
             if(type == .text) {
                 Text("Text")
             }
-        }
+        }.frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 

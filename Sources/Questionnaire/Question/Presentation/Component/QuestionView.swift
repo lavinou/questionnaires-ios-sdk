@@ -15,9 +15,13 @@ struct QuestionView: View {
     var body: some View {
         VStack {
             Text(question.name)
-            
-        }
-        
+                .frame(maxWidth: .infinity, alignment: .leading)
+            AnswerField(
+                answers: question.answers, 
+                type: question.type
+            )
+        }.frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 8)
     }
     
 }
