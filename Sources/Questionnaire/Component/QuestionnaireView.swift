@@ -14,7 +14,11 @@ struct QuestionnaireView: View {
     @ObservedObject var userObservable: UserObservable
     
     var body: some View {
-        Text("Hello wrodl from questionnaire: \(questionObservable.state.question)")
+        if let question = questionObservable.state.question {
+            AnswerField(
+                answers: question.answers,
+                type: question.type
+            )
             .task {
                 if let user = userObservable.user {
                     questionObservable.dispatch(
@@ -24,5 +28,7 @@ struct QuestionnaireView: View {
                     )
                 }
             }
+        }
+        
     }
 }

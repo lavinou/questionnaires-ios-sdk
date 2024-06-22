@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Answer {
+struct Answer: Identifiable, Hashable {
     let id: String
     let name: String
 }

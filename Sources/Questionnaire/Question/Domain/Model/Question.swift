@@ -17,3 +17,19 @@ struct Question {
     let createdAt: Date
     let updatedAt: Date?
 }
+
+
+extension Question {
+    
+    static func preview() -> Question {
+        return Question(
+            id: UUID().uuidString,
+            questionnaireId: UUID().uuidString,
+            name: "Test",
+            type: .boolean,
+            answers: [],
+            createdAt: Date.now,
+            updatedAt: nil
+        )
+    }
+}
