@@ -15,6 +15,7 @@ class AnswerObservable: ObservableObject {
         switch(action) {
             case let .onBooleanAnswerChange(id):
                 state.answers = [CurrentAnswer(id: id)]
+                print("AnswerObservable: $\(state)")
                 break
             case let .onCheckboxAnswerChange(id):
                 if(state.answers.map({answer in answer.id}).contains(id)) {
