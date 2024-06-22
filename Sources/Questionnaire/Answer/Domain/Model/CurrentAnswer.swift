@@ -9,5 +9,10 @@ import Foundation
 
 struct CurrentAnswer {
     let id: String
-    let value: String? = nil
+    let value: String?
+    
+    init(id: String, value: String? = nil) {
+        self.id = id
+        self.value = value
+    }
 }

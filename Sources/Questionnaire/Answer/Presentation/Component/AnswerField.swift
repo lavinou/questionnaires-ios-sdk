@@ -11,19 +11,29 @@ struct AnswerField: View {
     
     let answers: [Answer]
     let type: AnswerType
+    let selectedAnswers: [CurrentAnswer] = []
+    let onAction: (AnswerAction) -> Void
     
     var body: some View {
         ForEach(answers, id: \.id) { answer in
             if(type == .boolean) {
                 AnswerBooleanField(
-                    selected: .constant(false),
-                    answer: answer)
+                    answer: answer,
+                    selected: selectedAnswers.map({$0.id}).contains(answer.id),
+                    onChange: { value in
+                        onAction(.onBooleanAnswerChange(id: answer.id)
+                        )
+                    }
+                )
             }
             
             if(type == .checkbox) {
                 AnswerCheckboxField(
-                    selected: .constant(false),
-                    answer: answer
+                    answer: answer,
+                    selected: selectedAnswers.map({$0.id}).contains(answer.id),
+                    onChange: { value in
+                        onAction(.onCheckboxAnswerChange(id: answer.id))
+                    }
                 )
             }
             
@@ -45,6 +55,9 @@ struct AnswerField: View {
 #Preview {
     AnswerField(
         answers: [Answer(id: UUID().uuidString, name: "Yes"), Answer(id: UUID().uuidString, name: "No")],
-        type: .boolean
+        type: .boolean,
+        onAction: { action in
+            
+        }
     )
 }

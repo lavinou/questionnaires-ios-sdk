@@ -9,8 +9,10 @@ import SwiftUI
 
 struct AnswerBooleanField: View {
     
-    @Binding var selected: Bool
     var answer: Answer
+    @State var selected: Bool
+    var onChange: (Bool) -> Void
+    
     
     var body: some View {
         Toggle(isOn: $selected) {
@@ -18,12 +20,16 @@ struct AnswerBooleanField: View {
         }
         .toggleStyle(.radio)
         .foregroundColor(.blue)
+        .onChange(of: selected, perform: { newValue in
+            onChange(newValue)
+        })
     }
 }
 
 #Preview {
     AnswerBooleanField(
-        selected: .constant(true),
-        answer: Answer(id: "", name: "Testing")
+        answer: Answer(id: "", name: "Testing"),
+        selected: true,
+        onChange: { _ in }
     )
 }

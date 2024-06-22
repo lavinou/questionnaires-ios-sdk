@@ -28,10 +28,35 @@ class QuestionObservable: ObservableObject {
                 })
                 break
             case let .getNextQuestion(questionnaire, takerId, answers):
+                Task(operation: {
+                    let question = state.question?.id ?? ""
+                    let current = try await repository.nextQuestion(
+                        forQuestion: GetQuestion(
+                            questionnaireId: questionnaire,
+                            takerId: takerId
+                        ), next: NextQuestion(current: question, answers: answers))
+                    DispatchQueue.main.async {
+                        self.state.question = current.question
+                        self.state.previous = current.previous
+                        self.state.status = current.status
+                    }
+                })
                     
                 break
             case let .getPreviousQuestion(questionnaire, takerId):
-                
+            Task(operation: {
+                let question = state.question?.id ?? ""
+                let current = try await repository.previousQuestion(
+                    forQuestion: GetQuestion(
+                        questionnaireId: questionnaire,
+                        takerId: takerId
+                    ))
+                DispatchQueue.main.async {
+                    self.state.question = current.question
+                    self.state.previous = current.previous
+                    self.state.status = current.status
+                }
+            })
                 break
         }
     }
@@ -56,7 +81,7 @@ class QuestionObservable: ObservableObject {
                 }
                 
                 break
-            case let .error(error, message):
+            case let .error(_, message):
                 DispatchQueue.main.async {
                     self.state.errorMessage = message
                     self.state.loading = false

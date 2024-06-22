@@ -11,23 +11,36 @@ import SwiftUI
 struct QuestionView: View {
     
     @State var question: Question
+    @State var answers: [CurrentAnswer]
+    var onAction: (AnswerAction) -> Void
     
     var body: some View {
         VStack {
             Text(question.name)
-                .frame(maxWidth: .infinity, alignment: .leading)
+                .frame(
+                    maxWidth: .infinity,
+                    alignment: .leading
+                )
+                .padding(.vertical)
+                .fontWeight(.bold)
+                .font(.system(size: 24))
             AnswerField(
                 answers: question.answers, 
-                type: question.type
+                type: question.type,
+                onAction: onAction
             )
         }.frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 16)
     }
     
 }
 
 #Preview {
     QuestionView(
-        question: Question.preview()
+        question: Question.preview(),
+        answers: [],
+        onAction: { _ in
+            
+        }
     )
 }

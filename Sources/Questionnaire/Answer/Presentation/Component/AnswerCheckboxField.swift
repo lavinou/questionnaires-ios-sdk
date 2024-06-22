@@ -10,19 +10,28 @@ import SwiftUI
 
 struct AnswerCheckboxField: View {
     
-    @Binding var selected: Bool
     var answer: Answer
+    @State var selected: Bool = false
+    var onChange: (Bool) -> Void
+    
+
     
     var body: some View {
         Toggle(isOn: $selected) {
             Text(answer.name)
-        }.toggleStyle(.check)
+        }
+        .toggleStyle(.check)
+        .foregroundColor(.blue)
+        .onChange(of: selected, perform: { newValue in
+            onChange(newValue)
+        })
     }
 }
 
 #Preview {
     AnswerCheckboxField(
-        selected: .constant(true),
-        answer: Answer(id: "", name: "Testing")
+        answer: Answer(id: "", name: "Testing"),
+        selected: false,
+        onChange: { _ in }
     )
 }
