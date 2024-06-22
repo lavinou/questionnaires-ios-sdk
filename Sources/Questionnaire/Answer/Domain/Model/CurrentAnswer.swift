@@ -15,4 +15,13 @@ struct CurrentAnswer {
         self.id = id
         self.value = value
     }
+    
+}
+
+
+extension CurrentAnswer : Equatable {
+    
+    static func == (lhs: Self, rhs: Self) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
