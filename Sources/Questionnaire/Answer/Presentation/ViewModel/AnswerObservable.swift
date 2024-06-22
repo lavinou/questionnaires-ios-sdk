@@ -12,6 +12,7 @@ class AnswerObservable: ObservableObject {
     @Published private(set) var state: AnswerState = AnswerState(answers: [])
     
     func dispatch(action: AnswerAction) {
+        print("Answer Anction: \(action)")
         switch(action) {
         case let .onBooleanAnswerChange(id):
             state.answers = [CurrentAnswer(id: id)]

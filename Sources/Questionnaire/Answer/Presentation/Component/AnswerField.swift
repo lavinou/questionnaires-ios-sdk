@@ -11,7 +11,7 @@ struct AnswerField: View {
     
     let answers: [Answer]
     let type: AnswerType
-    let selectedAnswers: [CurrentAnswer] = []
+    let selectedAnswers: [CurrentAnswer]
     let onAction: (AnswerAction) -> Void
     
     var body: some View {
@@ -56,6 +56,7 @@ struct AnswerField: View {
     AnswerField(
         answers: [Answer(id: UUID().uuidString, name: "Yes"), Answer(id: UUID().uuidString, name: "No")],
         type: .boolean,
+        selectedAnswers: [],
         onAction: { action in
             
         }

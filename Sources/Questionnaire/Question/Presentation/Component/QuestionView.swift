@@ -27,6 +27,7 @@ struct QuestionView: View {
             AnswerField(
                 answers: question.answers, 
                 type: question.type,
+                selectedAnswers: answers,
                 onAction: onAction
             )
         }.frame(maxWidth: .infinity, alignment: .leading)

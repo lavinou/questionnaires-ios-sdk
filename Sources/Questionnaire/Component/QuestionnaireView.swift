@@ -13,7 +13,6 @@ struct QuestionnaireView: View {
     @ObservedObject var questionObservable: QuestionObservable
     @ObservedObject var userObservable: UserObservable
     @ObservedObject var answerObservable: AnswerObservable
-    @State var answers: [CurrentAnswer] = []
     
     var body: some View {
         VStack {
@@ -35,7 +34,9 @@ struct QuestionnaireView: View {
                     Spacer()
                     Button(action: {
                         questionObservable.dispatch(action: .getNextQuestion(
-                                questionnaire: id, takerId: user.id, answers: answers
+                                questionnaire: id, 
+                                takerId: user.id,
+                                answers: answerObservable.state.answers
                             )
                         )
                     }, label: {
