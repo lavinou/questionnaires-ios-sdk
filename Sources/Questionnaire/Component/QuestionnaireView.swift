@@ -14,21 +14,19 @@ struct QuestionnaireView: View {
     @ObservedObject var userObservable: UserObservable
     
     var body: some View {
-        if let question = questionObservable.state.question {
-            VStack {
-                Text("Hello World")
+        VStack {
+            if let question = questionObservable.state.question {
                 QuestionView(question: question)
             }
-            .task {
-                if let user = userObservable.user {
-                    questionObservable.dispatch(
-                        action: .getCurrentQuestion(
-                            questionnaire: id, takerId: user.id
-                        )
+        }
+        .task {
+            if let user = userObservable.user {
+                questionObservable.dispatch(
+                    action: .getCurrentQuestion(
+                        questionnaire: id, takerId: user.id
                     )
-                }
+                )
             }
         }
-        
     }
 }
