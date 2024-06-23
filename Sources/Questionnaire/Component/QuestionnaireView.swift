@@ -12,7 +12,7 @@ struct QuestionnaireView: View {
     let id: String
     @ObservedObject var questionObservable: QuestionObservable
     @ObservedObject var userObservable: UserObservable
-    @StateObject var answerObservable: AnswerObservable
+    @StateObject var answerObservable: AnswerObservable = AnswerObservable()
     
     var body: some View {
         VStack {
@@ -20,7 +20,7 @@ struct QuestionnaireView: View {
                 let user = userObservable.user {
                 QuestionView(
                     question: question,
-                    answers: answerObservable.currentAnswers,
+                    answerObservable: answerObservable,
                     onAction: answerObservable.dispatch
                 )
                 HStack {
@@ -36,7 +36,7 @@ struct QuestionnaireView: View {
                         questionObservable.dispatch(action: .getNextQuestion(
                                 questionnaire: id, 
                                 takerId: user.id,
-                                answers: answerObservable.currentAnswers
+                                answers: answerObservable.state.answers
                             )
                         )
                     }, label: {

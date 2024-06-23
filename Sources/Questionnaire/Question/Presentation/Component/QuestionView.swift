@@ -11,18 +11,16 @@ import SwiftUI
 struct QuestionView: View {
     
     @State var question: Question
-    let answers: [CurrentAnswer]
+    @ObservedObject var answerObservable: AnswerObservable
     var onAction: (AnswerAction) -> Void
     
-    init(question: Question, answers: [CurrentAnswer], onAction: @escaping (AnswerAction) -> Void) {
+    init(question: Question, answerObservable: AnswerObservable, onAction: @escaping (AnswerAction) -> Void) {
         self.question = question
-        self.answers = answers
+        self.answerObservable = answerObservable
         self.onAction = onAction
-        print("Testing Question")
     }
     
     var body: some View {
-        
         VStack {
             Text(question.name)
                 .frame(
@@ -35,7 +33,7 @@ struct QuestionView: View {
             AnswerField(
                 answers: question.answers, 
                 type: question.type,
-                selectedAnswers: answers,
+                selectedAnswers: answerObservable.state.answers,
                 onAction: onAction
             )
         }.frame(maxWidth: .infinity, alignment: .leading)
@@ -47,7 +45,7 @@ struct QuestionView: View {
 #Preview {
     QuestionView(
         question: Question.preview(),
-        answers: [],
+        answerObservable: AnswerObservable(),
         onAction: { _ in
             
         }
