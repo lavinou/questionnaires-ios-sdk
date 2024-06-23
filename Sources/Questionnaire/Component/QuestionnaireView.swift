@@ -43,6 +43,10 @@ struct QuestionnaireView: View {
                         Text("Next")
                     })
                 }.padding(16)
+                    .onChange(of: answerObservable.state.answers, perform: { newValue in
+                        print("QuestionnaireView: \(newValue)")
+                        
+                    })
             }
         }
         .task {
