@@ -14,8 +14,15 @@ struct QuestionView: View {
     let answers: [CurrentAnswer]
     var onAction: (AnswerAction) -> Void
     
-    var body: some View {
+    init(question: Question, answers: [CurrentAnswer], onAction: @escaping (AnswerAction) -> Void) {
+        self.question = question
+        self.answers = answers
+        self.onAction = onAction
         print("Testing Question")
+    }
+    
+    var body: some View {
+        
         VStack {
             Text(question.name)
                 .frame(
