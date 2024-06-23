@@ -9,28 +9,28 @@ import Foundation
 
 class AnswerObservable: ObservableObject {
     
-    @Published private(set) var state: AnswerState = AnswerState(answers: [])
+    @Published private(set) var currentAnswers: [CurrentAnswer] = []
     
     func dispatch(action: AnswerAction) {
         switch(action) {
             case let .onBooleanAnswerChange(id):
-                state.answers = [CurrentAnswer(id: id)]
+                currentAnswers = [CurrentAnswer(id: id)]
                 break
             case let .onCheckboxAnswerChange(id):
-                if(state.answers.map({answer in answer.id}).contains(id)) {
-                    state.answers = state.answers.filter({answer in answer.id != id})
+                if(currentAnswers.map({answer in answer.id}).contains(id)) {
+                    currentAnswers = currentAnswers.filter({answer in answer.id != id})
                 } else {
-                    state.answers.append(CurrentAnswer(id: id))
+                    currentAnswers.append(CurrentAnswer(id: id))
                 }
                 break
             case let .onRadioAnswerChange(id):
-                state.answers = [CurrentAnswer(id: id)]
+                currentAnswers = [CurrentAnswer(id: id)]
                 break
             case let .onSelectAnswerChange(id):
                 
                 break
             case let .onTextAnswerChange(id, value):
-                state.answers = [CurrentAnswer(id: id, value: value)]
+                currentAnswers = [CurrentAnswer(id: id, value: value)]
                 break
         }
     }

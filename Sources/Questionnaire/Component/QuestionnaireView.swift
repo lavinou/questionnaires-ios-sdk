@@ -20,7 +20,7 @@ struct QuestionnaireView: View {
                 let user = userObservable.user {
                 QuestionView(
                     question: question,
-                    answers: answerObservable.state.answers,
+                    answers: answerObservable.currentAnswers,
                     onAction: answerObservable.dispatch
                 )
                 HStack {
@@ -36,14 +36,14 @@ struct QuestionnaireView: View {
                         questionObservable.dispatch(action: .getNextQuestion(
                                 questionnaire: id, 
                                 takerId: user.id,
-                                answers: answerObservable.state.answers
+                                answers: answerObservable.currentAnswers
                             )
                         )
                     }, label: {
                         Text("Next")
                     })
                 }.padding(16)
-                    .onChange(of: answerObservable.state.answers, perform: { newValue in
+                    .onChange(of: answerObservable.currentAnswers, perform: { newValue in
                         print("QuestionnaireView: \(newValue)")
                         
                     })
