@@ -12,7 +12,7 @@ struct QuestionnaireView: View {
     let id: String
     @ObservedObject var questionObservable: QuestionObservable
     @ObservedObject var userObservable: UserObservable
-    @ObservedObject var answerObservable: AnswerObservable
+    @StateObject var answerObservable: AnswerObservable
     
     var body: some View {
         VStack {
@@ -43,10 +43,6 @@ struct QuestionnaireView: View {
                         Text("Next")
                     })
                 }.padding(16)
-                    .onChange(of: answerObservable.currentAnswers, perform: { newValue in
-                        print("QuestionnaireView: \(newValue)")
-                        
-                    })
             }
         }
         .task {

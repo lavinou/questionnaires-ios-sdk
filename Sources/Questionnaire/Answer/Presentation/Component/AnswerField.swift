@@ -24,9 +24,7 @@ struct AnswerField: View {
                         onAction(.onBooleanAnswerChange(id: answer.id)
                         )
                     }
-                ).onChange(of: selectedAnswers, perform: { newValue in
-                    print("Answers: \(newValue)")
-                })
+                )
             }
             
             if(type == .checkbox) {
