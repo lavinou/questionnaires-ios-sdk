@@ -11,13 +11,21 @@ import SwiftUI
 struct AnswerCheckboxField: View {
     
     var answer: Answer
-    @State var selected: Bool = false
+    var selected: Bool = false
     var onChange: (Bool) -> Void
+    @State private var selectedState: Bool
+    
+    init(answer: Answer, selected: Bool, onChange: @escaping (Bool) -> Void) {
+        self.answer = answer
+        self.selected = selected
+        self.onChange = onChange
+        _selectedState = State(wrappedValue: selected)
+    }
     
 
     
     var body: some View {
-        Toggle(isOn: $selected) {
+        Toggle(isOn: $selectedState) {
             Text(answer.name)
         }
         .toggleStyle(.check)

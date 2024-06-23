@@ -11,7 +11,7 @@ import SwiftUI
 struct QuestionView: View {
     
     @State var question: Question
-    @State var answers: [CurrentAnswer]
+    let answers: [CurrentAnswer]
     var onAction: (AnswerAction) -> Void
     
     var body: some View {

@@ -11,7 +11,7 @@ struct AnswerField: View {
     
     let answers: [Answer]
     let type: AnswerType
-    @State var selectedAnswers: [CurrentAnswer]
+    let selectedAnswers: [CurrentAnswer]
     let onAction: (AnswerAction) -> Void
     
     var body: some View {
