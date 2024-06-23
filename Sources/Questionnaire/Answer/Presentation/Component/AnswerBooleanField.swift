@@ -16,7 +16,6 @@ struct AnswerBooleanField: View {
     @State private var selectedState: Bool
     
     init(answer: Answer, selected: Bool, onChange: @escaping (Bool) -> Void) {
-        print("Testing Something")
         self.answer = answer
         self.selected = selected
         self.onChange = onChange

@@ -15,6 +15,7 @@ struct QuestionView: View {
     var onAction: (AnswerAction) -> Void
     
     var body: some View {
+        print("Testing Question")
         VStack {
             Text(question.name)
                 .frame(
