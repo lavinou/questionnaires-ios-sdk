@@ -2,7 +2,7 @@
 
 ## Introduction
 Welcome to the Questionnaire SDK repository. Here you will learn how to use the Questionnaire
-SDK for Android Applications.
+SDK for iOS Applications.
 
 
 ## Project Key
