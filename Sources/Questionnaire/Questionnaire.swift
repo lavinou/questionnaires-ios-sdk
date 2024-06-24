@@ -32,7 +32,10 @@ public class Questionnaire {
             id: id,
             questionObservable: questionObservable,
             userObservable: userObservable
-        ).readSize { sheetHeight = $0.height }
+        ).readSize {
+            sheetHeight = $0.height
+            print("Size: \($0.height)")
+        }
         
         let hostingController = UIHostingController(rootView: swiftUIView)
         
