@@ -27,15 +27,25 @@ public class Questionnaire {
             return
         }
         
-        let hostingController = UIHostingController(rootView: QuestionnaireView(
+        var sheetHeight = CGFloat.zero
+        let swiftUIView =  QuestionnaireView(
             id: id,
             questionObservable: questionObservable,
             userObservable: userObservable
-        ))
+        ).readSize { sheetHeight = $0.height }
+        
+        let hostingController = UIHostingController(rootView: swiftUIView)
         
         hostingController.modalPresentationStyle = .pageSheet
         let sheet = hostingController.sheetPresentationController
-        sheet?.detents = [.medium(), .large()]
+        sheet?.detents = [.custom { _ in 0 },
+                          .large()]
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                hostingController.sheetPresentationController?.animateChanges {
+                    sheet?.detents = [.custom { _ in sheetHeight }, .large()]
+                }
+            }
 
         rootViewController.present(hostingController, animated: true, completion: nil)
     }
