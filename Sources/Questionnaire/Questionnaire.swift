@@ -8,6 +8,7 @@ import Combine
 public class Questionnaire {
     
     private let builder: Builder
+    private var cancellables: Set<AnyCancellable> = Set()
     
     private init(builder: Builder) {
         self.builder = builder
@@ -27,30 +28,36 @@ public class Questionnaire {
             return
         }
         
-        var sheetHeight = CGFloat.zero
+        var sheetHeight = CurrentValueSubject<CGFloat, Never>(CGFloat.zero)
         let swiftUIView =  QuestionnaireView(
             id: id,
             questionObservable: questionObservable,
-            userObservable: userObservable
-        ).readSize {
-            sheetHeight = $0.height
-            print("Size: \($0.height)")
-        }
-        
-        let hostingController = UIHostingController(rootView: swiftUIView)
-        
-        hostingController.modalPresentationStyle = .pageSheet
-        let sheet = hostingController.sheetPresentationController
-        sheet?.detents = [.custom { _ in 0 },
-                          .large()]
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                hostingController.sheetPresentationController?.animateChanges {
-                    sheet?.detents = [.custom { _ in sheetHeight }, .large()]
-                }
+            userObservable: userObservable,
+            onSizeChange: {
+                sheetHeight.send($0.height)
+            },
+            onDismiss: {
+                rootViewController.dismiss(animated: true, completion: nil)
             }
+        )
+        
+        let controller = UIHostingController(rootView: swiftUIView)
+        
+        controller.modalPresentationStyle = .pageSheet
+        let sheet = controller.sheetPresentationController
+        sheet?.detents = [.custom { _ in 0 }]
+        
+        sheetHeight.receive(on: DispatchQueue.main)
+            .sink(receiveValue: { height in
+                sheet?.animateChanges({
+                    sheet?.detents = [.custom{_ in height}]
+                })
+                
+            }).store(in: &cancellables)
+        
+        
 
-        rootViewController.present(hostingController, animated: true, completion: nil)
+        rootViewController.present(controller, animated: true, completion: nil)
     }
     
     

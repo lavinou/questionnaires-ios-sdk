@@ -19,12 +19,12 @@ struct QuestionView: View {
         VStack {
             Text(question.name)
                 .frame(
-                    maxWidth: .infinity,
                     alignment: .leading
                 )
                 .padding(.vertical)
                 .fontWeight(.bold)
                 .font(.system(size: 24))
+                .fixedSize(horizontal: false, vertical: true)
             AnswerField(
                 answers: question.answers, 
                 type: question.type,

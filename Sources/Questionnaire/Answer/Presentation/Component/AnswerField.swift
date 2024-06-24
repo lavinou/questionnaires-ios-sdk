@@ -51,7 +51,13 @@ struct AnswerField: View {
             }
             
             if(type == .text) {
-                Text("Text")
+                AnswerTextField(
+                    answer: answer,
+                    value: selectedAnswers.first(where: {
+                    $0.id == answer.id})?.value ?? "", 
+                    onChange: { text in
+                        onAction(.onTextAnswerChange(id: answer.id, value: text))
+                })
             }
         }.frame(maxWidth: .infinity, alignment: .leading)
     }

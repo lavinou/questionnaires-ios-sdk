@@ -9,18 +9,6 @@ import Foundation
 
 extension QuestionResponse {
     
-    private func dateFromString(value: String?) -> Date? {
-        guard let value = value else {
-            return nil
-        }
-        
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = [.withFullDate, .withFullTime, .withTimeZone]
-        let date = formatter.date(from: value) ?? Date.now
-        print("Date: \(date)")
-        return date
-    }
-    
     func toQuestion() -> Question {
         
         return Question(
@@ -29,8 +17,8 @@ extension QuestionResponse {
             name: self.name,
             type: AnswerType.from(value: self.type),
             answers: self.answers.map({$0.toAnswer()}), 
-            createdAt: dateFromString(value: self.createdAt) ?? Date.now,
-            updatedAt: dateFromString(value: self.updatedAt)
+            createdAt: Date.from(string: self.createdAt) ?? Date.now,
+            updatedAt: Date.from(string: self.updatedAt ?? "")
         )
     }
 }
