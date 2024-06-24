@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 class QuestionObservable: ObservableObject {
     
@@ -14,10 +15,14 @@ class QuestionObservable: ObservableObject {
     private let repository: QuestionRepository
     
     @Published private(set) var state: QuestionState = QuestionState()
+    private var cancellables: Set<AnyCancellable> = Set()
     
     init(getCurrentQuestionUseCase: GetCurrentQuestionUseCase, repository: QuestionRepository) {
         self.getCurrentQuestionUseCase = getCurrentQuestionUseCase
         self.repository = repository
+        $state.sink(receiveValue: { test in
+            print("Question State: \(test)")
+        }).store(in: &cancellables)
     }
     
     func dispatch(action: QuestionAction) {

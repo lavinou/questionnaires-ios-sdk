@@ -9,29 +9,18 @@ import SwiftUI
 
 struct AnswerBooleanField: View {
     
-    var answer: Answer
-    var selected: Bool
-    var onChange: (Bool) -> Void
-    
-    @State private var selectedState: Bool
-    
-    init(answer: Answer, selected: Bool, onChange: @escaping (Bool) -> Void) {
-        self.answer = answer
-        self.selected = selected
-        self.onChange = onChange
-        _selectedState = State(wrappedValue: selected)
-    }
-    
+    let answer: Answer
+    let selected: Bool
+    let onChange: (Bool) -> Void
     
     var body: some View {
-        Toggle(isOn: $selectedState) {
+        Toggle(isOn: .constant(selected)) {
             Text(answer.name)
         }
-        .toggleStyle(.radio)
+        .toggleStyle(.radio(onClick: {
+            onChange(!selected)
+        }))
         .foregroundColor(.blue)
-        .onChange(of: selected, perform: { newValue in
-            onChange(newValue)
-        })
     }
 }
 

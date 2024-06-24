@@ -10,15 +10,10 @@ import SwiftUI
 
 struct QuestionView: View {
     
-    @State var question: Question
-    @ObservedObject var answerObservable: AnswerObservable
+    let question: Question
+    let answers: [CurrentAnswer]
     var onAction: (AnswerAction) -> Void
     
-    init(question: Question, answerObservable: AnswerObservable, onAction: @escaping (AnswerAction) -> Void) {
-        self.question = question
-        self.answerObservable = answerObservable
-        self.onAction = onAction
-    }
     
     var body: some View {
         VStack {
@@ -33,7 +28,7 @@ struct QuestionView: View {
             AnswerField(
                 answers: question.answers, 
                 type: question.type,
-                selectedAnswers: answerObservable.state.answers,
+                selectedAnswers: answers,
                 onAction: onAction
             )
         }.frame(maxWidth: .infinity, alignment: .leading)
@@ -45,7 +40,7 @@ struct QuestionView: View {
 #Preview {
     QuestionView(
         question: Question.preview(),
-        answerObservable: AnswerObservable(),
+        answers: [],
         onAction: { _ in
             
         }

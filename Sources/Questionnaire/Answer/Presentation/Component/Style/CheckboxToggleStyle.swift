@@ -9,6 +9,8 @@ import SwiftUI
 
 struct CheckboxToggleStyle: ToggleStyle {
     
+    let onClick: () -> Void
+    
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             Image(systemName: configuration.isOn ? "square.inset.filled" :"square"
@@ -16,12 +18,14 @@ struct CheckboxToggleStyle: ToggleStyle {
             configuration.label
         }.onTapGesture {
             withAnimation {
-                configuration.isOn = !configuration.isOn
+                onClick()
             }
         }
     }
 }
 
 extension ToggleStyle where Self == CheckboxToggleStyle {
-    static var check: CheckboxToggleStyle { .init() }
+    static func check(onCick: @escaping () -> Void) -> CheckboxToggleStyle {
+        CheckboxToggleStyle(onClick: onCick)
+    }
 }

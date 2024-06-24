@@ -9,6 +9,8 @@ import SwiftUI
 
 struct RadioButtonToggleStyle: ToggleStyle {
     
+    let onClick: () -> Void
+    
     func makeBody(configuration: Configuration) -> some View {
         HStack {
             Image(systemName: configuration.isOn ? "circle.circle.fill" :"circle"
@@ -16,12 +18,14 @@ struct RadioButtonToggleStyle: ToggleStyle {
             configuration.label
         }.onTapGesture {
             withAnimation {
-                configuration.isOn = !configuration.isOn
+                onClick()
             }
         }
     }
 }
 
 extension ToggleStyle where Self == RadioButtonToggleStyle {
-    static var radio: RadioButtonToggleStyle { .init() }
+    static func radio(onClick: @escaping () -> Void) -> RadioButtonToggleStyle { RadioButtonToggleStyle(
+        onClick: onClick)
+    }
 }

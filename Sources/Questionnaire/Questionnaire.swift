@@ -30,8 +30,7 @@ public class Questionnaire {
         let hostingController = UIHostingController(rootView: QuestionnaireView(
             id: id,
             questionObservable: questionObservable,
-            userObservable: userObservable,
-            answerObservable: AnswerObservable()
+            userObservable: userObservable
         ))
         
         hostingController.modalPresentationStyle = .pageSheet

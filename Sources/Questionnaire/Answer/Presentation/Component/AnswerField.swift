@@ -17,12 +17,11 @@ struct AnswerField: View {
     var body: some View {
         ForEach(answers, id: \.id) { answer in
             if(type == .boolean) {
-                AnswerBooleanField(
+                AnswerRadioField(
                     answer: answer,
                     selected: selectedAnswers.map({$0.id}).contains(answer.id),
-                    onChange: { value in
-                        onAction(.onBooleanAnswerChange(id: answer.id)
-                        )
+                    onChange: { _ in
+                        onAction(.onRadioAnswerChange(id: answer.id))
                     }
                 )
             }
@@ -38,7 +37,13 @@ struct AnswerField: View {
             }
             
             if(type == .radio) {
-                Text("Radio")
+                AnswerRadioField(
+                    answer: answer,
+                    selected:selectedAnswers.map({$0.id}).contains(answer.id),
+                    onChange: { _ in
+                        onAction(.onRadioAnswerChange(id: answer.id))
+                    }
+                )
             }
             
             if(type == .select) {
